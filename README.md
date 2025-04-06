@@ -10,6 +10,12 @@ This is a simple budget tracking application built using Python, Tkinter for the
 * **Categorized Spending:** (Adding later) Group transactions by categories to analyze spending patterns.
 * **Summary/Balance:** (Adding later) Display the current balance or a summary of income and expenses.
 
+
+## Installation
+1. Download zip
+2. Extract all files
+3. Run Main in your favorite IDE
+
 ## Usage
 
 1.  **Adding Transactions:**
