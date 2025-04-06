@@ -17,11 +17,11 @@ This is a simple budget tracking application built using Python, Tkinter for the
 3. Run Main in your favorite IDE
 
 ## Usage
-
-1.  **Adding Transactions:**
-    * Use the provided input fields to enter transaction details.
-    * Click the "Add" button to save the transaction.
-
-2.  **Viewing Transactions:**
-    * The transaction table will display all recorded entries.
-    * (Optional: Filtering, sorting, and searching features will be added.)
+1.  Adding Transactions
+2.  Deleting Transactions
+   - Deleted by entering in ID associated with that transaction
+4.  Updating Transactions
+   - Updated by entering in ID associated with that transaction
+5.  Viewing Transactions
+   - the transaction table will display all recorded entries.
+   - Filtering, sorting, and searching features will be added.
