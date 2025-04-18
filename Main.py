@@ -48,7 +48,7 @@ def view_transactions(sort_by=None, sort_order='DESC', filter_category=None):
         total_expenses = sum(abs(t[4]) for t in transactions if t[4] < 0)
         net_balance = total_income + sum(t[4] for t in transactions if t[4] < 0)
 
-        GUI.view_transactions_gui(transactions, total_income, total_expenses, net_balance)| Category: {transaction[3]} | Description: {transaction[2]}\n")
+         GUI.view_transactions_gui(transactions, total_income, total_expenses, net_balance)
 
 def delete_transaction(transaction_number):
     try:
