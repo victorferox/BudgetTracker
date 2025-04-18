@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import Main
-from tkinter import ttk  # Import missing for Combobox
+from tkinter import ttk 
 
 CATEGORIES = ["Food", "Transportation", "Entertainment", "Utilities", "Salary", "Other"]
 
@@ -18,8 +18,8 @@ def add_transaction_gui():
     description_entry.grid(row=1, column=1, padx=5, pady=5)
 
     Label(add_window, text="Category:").grid(row=2, column=0, padx=5, pady=5)
-    category_combo = ttk.Combobox(add_window, values=CATEGORIES) # Use Combobox
-    category_combo.set(CATEGORIES[0]) # Set a default
+    category_combo = ttk.Combobox(add_window, values=CATEGORIES) 
+    category_combo.set(CATEGORIES[0]) 
     category_combo.grid(row=2, column=1, padx=5, pady=5)
 
     Label(add_window, text="Amount:").grid(row=3, column=0, padx=5, pady=5)
