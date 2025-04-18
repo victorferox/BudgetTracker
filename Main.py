@@ -42,7 +42,7 @@ def view_transactions(sort_by=None, sort_order='DESC', filter_category=None):
         elif sort_by == 'amount':
             query += " ORDER BY amount " + sort_order.upper()
         else:
-            query += " ORDER BY id DESC" # Default ordering
+            query += " ORDER BY id DESC" 
 
         cursor.execute(query, tuple(params))
         transactions = cursor.fetchall()
@@ -80,10 +80,8 @@ def update_transaction(transaction_number, date, description, category, amount):
             if cursor.rowcount > 0:
                 conn.commit()
                 messagebox.showinfo(title='Information', message="Transaction has been updated")
-            else:
-                messagebox.showerror("Error", "Transaction ID not found.")
     except ValueError:
-        messagebox.showerror(" Please ensure Transaction ID is a number and Amount is a valid number.")
+        messagebox.showerror("Please enter a valid transaction ID")
 
 
 if __name__ == "__main__":
