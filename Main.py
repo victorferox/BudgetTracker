@@ -24,7 +24,7 @@ def add_transaction(date, description, category, amount):
             conn.commit()
             messagebox.showinfo(title='Information', message="Transaction has been added")
     except ValueError:
-        messagebox.showerror("Invalid amount. Please enter a number.")
+        messagebox.showerror("Please enter a valid number")
    
 
 def view_transactions(sort_by=None, sort_order='DESC', filter_category=None):
@@ -62,10 +62,8 @@ def delete_transaction(transaction_number):
             if cursor.rowcount > 0:
                 conn.commit()
                 messagebox.showinfo(title='Information', message='The transaction has been deleted')
-            else:
-                messagebox.showerror("Error", "Transaction ID not found.")
     except ValueError:
-        messagebox.showerror("Please enter a valid number for the Transaction ID.")
+        messagebox.showerror("A transaction with that ID does not exist")
    
 
 def update_transaction(transaction_number, date, description, category, amount):
@@ -81,7 +79,7 @@ def update_transaction(transaction_number, date, description, category, amount):
                 conn.commit()
                 messagebox.showinfo(title='Information', message="Transaction has been updated")
     except ValueError:
-        messagebox.showerror("Please enter a valid transaction ID")
+        messagebox.showerror("A transaction with that ID does not exist")
 
 
 if __name__ == "__main__":
