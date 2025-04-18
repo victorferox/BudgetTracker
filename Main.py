@@ -24,19 +24,31 @@ def add_transaction(date, description, category, amount):
     except Exception as e:
         messagebox.showerror("Transaction ID doesn't exist.")
 
-def view_transactions():
+def view_transactions(sort_by=None, sort_order='DESC', filter_category=None):
     with sqlite3.connect("budget_tracker.db") as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM transactions")
+        query = "SELECT * FROM transactions WHERE 1=1"
+        params = []
+
+        if filter_category and filter_category != "All":
+            query += " AND category = ?"
+            params.append(filter_category)
+
+        if sort_by == 'date':
+            query += " ORDER BY date " + sort_order.upper()
+        elif sort_by == 'amount':
+            query += " ORDER BY amount " + sort_order.upper()
+        else:
+            query += " ORDER BY id DESC" # Default ordering
+
+        cursor.execute(query, tuple(params))
         transactions = cursor.fetchall()
 
-    view_window = Toplevel()
-    view_window.title("Transaction History")
-    text_area = Text(view_window, width=60, height=10)
-    text_area.pack(padx=10, pady=10)
+        total_income = sum(t[4] for t in transactions if t[4] > 0)
+        total_expenses = sum(abs(t[4]) for t in transactions if t[4] < 0)
+        net_balance = total_income + sum(t[4] for t in transactions if t[4] < 0)
 
-    for transaction in transactions:
-        text_area.insert(END, f"TRANSACTION ID: {transaction[0]} | Date: {transaction[1]} | Amount: {transaction[4]:.2f} | Category: {transaction[3]} | Description: {transaction[2]}\n")
+        GUI.view_transactions_gui(transactions, total_income, total_expenses, net_balance)| Category: {transaction[3]} | Description: {transaction[2]}\n")
 
 def delete_transaction(transaction_number):
     try:
