@@ -17,11 +17,11 @@ This is a simple budget tracking application built using Python, Tkinter for the
 
 ## Usage
 1.  Adding Transactions
-   When adding transactions, you are able to enter in the date, amount, description, and choose from a list of categories. 
+   - When adding transactions, you are able to enter in the date, amount, description, and choose from a list of categories. 
 3.  Deleting Transactions
-   Deleted by entering in ID associated with that transaction. 
+   - Deleted by entering in ID associated with that transaction. 
 4.  Updating Transactions
-   Updated by entering in ID associated with that transaction
+   - Updated by entering in ID associated with that transaction
 5.  Viewing Transactions
-   The transaction table will display all recorded entries, as well as display a summary section that includes income, expenses, and net balance. 
-   Filtering and sorting functinoality of transactionsare available. You are able to sort by amount or date in ascending or descending order. You can filter transactions based on      predefined categories. 
+- The transaction table will display all recorded entries, as well as display a summary section that includes income, expenses, and net balance.
+- Filtering and sorting functinoality of transactionsare available. You are able to sort by amount or date in ascending or descending order. You can filter transactions based on predefined categories. 
