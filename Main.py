@@ -28,7 +28,7 @@ def add_transaction(date, description, category, amount):
    
 
 def view_transactions(sort_by=None, sort_order='DESC', filter_category=None):
-    with sqlite3.connect("budget_tracker.db") as conn:
+    with sqlite3.connect(DATABASE_NAME) as conn:
         cursor = conn.cursor()
         query = "SELECT * FROM transactions WHERE 1=1"
         params = []
@@ -42,14 +42,22 @@ def view_transactions(sort_by=None, sort_order='DESC', filter_category=None):
         elif sort_by == 'amount':
             query += " ORDER BY amount " + sort_order.upper()
         else:
-            query += " ORDER BY id DESC" 
+            query += " ORDER BY id DESC"
 
         cursor.execute(query, tuple(params))
         transactions = cursor.fetchall()
 
-        total_income = sum(t[4] for t in transactions if t[4] > 0)
-        total_expenses = sum(abs(t[4]) for t in transactions if t[4] < 0)
-        net_balance = total_income + sum(t[4] for t in transactions if t[4] < 0)
+        total_income = 0
+        total_expenses = 0
+        for transaction in transactions:
+            if transaction[3] == "Salary" and transaction[4] > 0:
+                total_income += transaction[4]
+            elif transaction[4] < 0:
+                total_expenses += abs(transaction[4])
+            elif transaction[4] > 0 and transaction[3] != "Salary":
+                total_expenses += transaction[4] 
+
+        net_balance = total_income - total_expenses
 
         GUI.view_transactions_gui(transactions, total_income, total_expenses, net_balance)
 
