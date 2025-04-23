@@ -1,4 +1,6 @@
+
 from tkinter import *
+import sqlite3
 from tkinter import messagebox
 import Main
 from tkinter import ttk 
@@ -29,7 +31,8 @@ def add_transaction_gui():
     def add_button_click():
         try:
             amount = float(amount_entry.get())
-            Main.add_transaction(date_entry.get(), description_entry.get(), category_combo.get(), amount)
+            with sqlite3.connect(Main.DATABASE_NAME) as conn:
+                Main.add_transaction(date_entry.get(), description_entry.get(), category_combo.get(), amount, conn)
             add_window.destroy()
         except ValueError:
             messagebox.showerror("Please enter a valid number for the amount.")
@@ -45,8 +48,9 @@ def delete_transaction_gui():
     id_entry.grid(row=0, column=1, padx=5, pady=5)
 
     def delete_button_click():
-        Main.delete_transaction(id_entry.get())
-        delete_window.destroy()
+         with sqlite3.connect(Main.DATABASE_NAME) as conn: 
+            Main.delete_transaction(id_entry.get(), conn)
+            delete_window.destroy()
 
     Button(delete_window, text="Delete", command=delete_button_click).grid(row=1, column=0)
 
@@ -77,8 +81,9 @@ def update_transaction_gui():
     def update_button_click():
         try:
             amount = float(amount_entry.get())
-            Main.update_transaction(id_entry.get(), date_entry.get(), description_entry.get(), category_combo.get(), amount) 
-            update_window.destroy()
+            with sqlite3.connect(Main.DATABASE_NAME) as conn:
+                Main.update_transaction(id_entry.get(), date_entry.get(), description_entry.get(), category_combo.get(), amount, conn) 
+                update_window.destroy()
         except ValueError:
             messagebox.showerror("Error", "Please enter a valid number for the amount.")
 
@@ -138,7 +143,9 @@ def view_transactions_gui(transactions, total_income=0, total_expenses=0, net_ba
     text_area.config(state=DISABLED)
 
 def main_gui():
-    Main.create_database()
+    conn = sqlite3.connect(Main.DATABASE_NAME)
+    Main.create_database(conn)
+    conn.close()
 
     root = Tk()
     root.title("Budget Tracker")
